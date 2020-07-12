@@ -3,9 +3,10 @@ export interface URLOptions{
   method: string;
 };
 
-export interface TorrentFile{
+export interface TorrentFile {
   torrent: string;
   magnet: string;
+  torrentInfo: TorrentInfo
 };
 
 export interface TorrentInfo{
@@ -20,7 +21,6 @@ export interface Serie{
   lang: string;
   resolution: string;
   size: string;
-  torrentInfo: Array<TorrentInfo>
   torrents: Array<TorrentFile>;
 };
 
@@ -30,7 +30,6 @@ export interface Movie{
   lang: string;
   resolution: string;
   size: string;
-  torrentInfo: Array<TorrentInfo>
   torrents: Array<TorrentFile>;
 };
 
@@ -40,7 +39,6 @@ export interface NewReleases{
   lang: string;
   resolution: string;
   size: string;
-  torrentInfo: Array<TorrentInfo>
   torrents: Array<TorrentFile>;
 };
 
@@ -50,7 +48,6 @@ export interface MoviesHDRip{
   lang: string;
   resolution: string;
   size: string;
-  torrentInfo: Array<TorrentInfo>
   torrents: Array<TorrentFile>;
 };
 
@@ -60,7 +57,6 @@ export interface MovieMicroHD{
   lang: string;
   resolution: string;
   size: string;
-  torrentInfo: Array<TorrentInfo>
   torrents: Array<TorrentFile>;
 };
 
@@ -70,7 +66,6 @@ export interface Genre{
   lang: string;
   resolution: string;
   size: string;
-  torrentInfo: Array<TorrentInfo>
   torrents: Array<TorrentFile>;
 };
 
