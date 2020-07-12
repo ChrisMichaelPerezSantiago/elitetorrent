@@ -64,3 +64,14 @@ export interface MovieMicroHD{
   torrents: Array<TorrentFile>;
 };
 
+export interface Genre{
+  title: string;
+  poster: string;
+  lang: string;
+  resolution: string;
+  size: string;
+  torrentInfo: Array<TorrentInfo>
+  torrents: Array<TorrentFile>;
+};
+
+
