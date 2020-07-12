@@ -1,8 +1,8 @@
 import { load } from 'cheerio'
 import { req } from './utils/index';
 import { BASE_URL } from './urls/index';
-import { TypeSN } from './types';
-import { TorrentFile, Serie, Movie, NewReleases, MoviesHDRip, MovieMicroHD } from './interfaces';
+import { TypeSN, TypeNN } from './types';
+import { TorrentFile, Serie, Movie, NewReleases, MoviesHDRip, MovieMicroHD, TorrentInfo } from './interfaces';
 
 
 
@@ -24,13 +24,15 @@ const getSeries = async(page: number): Promise<Serie[]> =>{
         const resolution: TypeSN = $element.find('div.imagen span.marca').eq(1).text();
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
-        
+        let torrentInfo = await getTorrentInfo(id);
+
         _series.push({
           title: title,
           poster: poster,
           lang: lang,
           resolution: resolution,
           size: size,
+          torrentInfo: torrentInfo,
           torrents: torrents,
         });
 
@@ -62,13 +64,15 @@ const getMovies = async(page: number): Promise<Movie[]> =>{
         const resolution: TypeSN = $element.find('div.imagen span.marca').eq(1).text();
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
-        
+        let torrentInfo = await getTorrentInfo(id);
+
         _movies.push({
           title: title,
           poster: poster,
           lang: lang,
           resolution: resolution,
           size: size,
+          torrentInfo: torrentInfo,
           torrents: torrents,
         });
 
@@ -100,6 +104,7 @@ const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
         const resolution: TypeSN = $element.find('div.imagen span.marca').eq(1).text();
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
+        let torrentInfo = await getTorrentInfo(id);
         
         _releases.push({
           title: title,
@@ -107,6 +112,7 @@ const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
           lang: lang,
           resolution: resolution,
           size: size,
+          torrentInfo: torrentInfo,
           torrents: torrents,
         });
 
@@ -138,6 +144,7 @@ const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
         const resolution: TypeSN = $element.find('div.imagen span.marca').eq(1).text();
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
+        let torrentInfo = await getTorrentInfo(id);
         
         _movies.push({
           title: title,
@@ -145,6 +152,7 @@ const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
           lang: lang,
           resolution: resolution,
           size: size,
+          torrentInfo: torrentInfo,
           torrents: torrents,
         });
 
@@ -176,6 +184,7 @@ const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
         const resolution: TypeSN = $element.find('div.imagen span.marca').eq(1).text();
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
+        let torrentInfo = await getTorrentInfo(id);
         
         _movies.push({
           title: title,
@@ -183,6 +192,7 @@ const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
           lang: lang,
           resolution: resolution,
           size: size,
+          torrentInfo: torrentInfo,
           torrents: torrents,
         });
 
@@ -203,17 +213,57 @@ const getTorrent = async(url: string): Promise<Array<TorrentFile>> =>{
 
 
   $('body div#cuerpo div#principal').each((_index: number, element: CheerioElement) =>{
-    const $element = $(element);
-    let torrent: TypeSN = $element.find('div.ficha_descarga_opciones div.enlace_descarga a').eq(0).attr('href');
-    if(torrent !== null && torrent.startsWith('/')){
-      torrent = `${BASE_URL}` + $element.find('div.ficha_descarga_opciones div.enlace_descarga a').eq(0).attr('href');
+    try{
+      const $element = $(element);
+      let torrent: TypeSN = $element.find('div.ficha_descarga_opciones div.enlace_descarga a').eq(0).attr('href');
+      if(torrent !== null && torrent.startsWith('/')){
+        torrent = `${BASE_URL}` + $element.find('div.ficha_descarga_opciones div.enlace_descarga a').eq(0).attr('href');
+      }
+      const magnet: TypeSN = $element.find('div.ficha_descarga_opciones div.enlace_descarga a').eq(1).attr('href');
+      _files.push({
+        torrent: torrent,
+        magnet: magnet
+      });
+    }catch(err){
+      console.log(err);
     }
-    const magnet: TypeSN = $element.find('div.ficha_descarga_opciones div.enlace_descarga a').eq(1).attr('href');
-    _files.push({
-      torrent: torrent,
-      magnet: magnet
-    });
   })
 
   return Promise.resolve(_files);
+}
+
+const getTorrentInfo = async(url: string): Promise<TorrentInfo[]> =>{
+  const res = await req(`${url}`);
+  const $ = load(res);
+  const torrentInfo: Array<TorrentInfo> = [];
+
+  $('body div#cuerpo div#principal div#capa-fichadescarga')
+    .each((_index: number, element: CheerioElement) =>{
+      try{
+        const $element = $(element);
+        let _date: TypeSN = $element.find('div.secc-ppal span').eq(0).text();
+        let date: TypeSN = "";
+        if(_date !== null && _date.includes(':')){
+          date = _date.split(':')[1].trim();
+        }
+        const numbers = $element.find('div.secc-der div.infotorrent div.ppal').text().match(/\d+/g);
+        let seeds: TypeNN;
+        let clients: TypeNN;
+          
+        if(Array.isArray(numbers) && numbers.length > 0){
+          seeds = parseInt(numbers[0], 10);
+          clients = parseInt(numbers[1], 10);
+        }
+
+        torrentInfo.push({
+          date,
+          seeds,
+          clients
+        });
+      }catch(err){
+        console.log(err);
+      }
+    }
+  );
+  return Promise.resolve(torrentInfo);
 }
