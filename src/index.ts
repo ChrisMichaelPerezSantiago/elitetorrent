@@ -6,7 +6,7 @@ import { TorrentFile, Serie, Movie, NewReleases, MoviesHDRip, MovieMicroHD, Torr
 
 
 
-const getSeries = async(page: number): Promise<Serie[]> =>{
+export const getSeries = async(page: number): Promise<Serie[]> =>{
   const res = await req(`${BASE_URL}/series-20/page/${page}/`);
   const $ = load(res);
 
@@ -25,7 +25,7 @@ const getSeries = async(page: number): Promise<Serie[]> =>{
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
 
-        _series.push({
+        resolve({
           title: title,
           poster: poster,
           lang: lang,
@@ -33,8 +33,6 @@ const getSeries = async(page: number): Promise<Serie[]> =>{
           size: size,
           torrents: torrents,
         });
-
-        resolve(_series);
 
       }catch(err){
         reject(err);
@@ -44,7 +42,7 @@ const getSeries = async(page: number): Promise<Serie[]> =>{
   return Promise.all(_series);
 }
 
-const getMovies = async(page: number): Promise<Movie[]> =>{
+export const getMovies = async(page: number): Promise<Movie[]> =>{
   const res = await req(`${BASE_URL}/peliculas-16/page/${page}/`);
   const $ = load(res);
 
@@ -63,7 +61,7 @@ const getMovies = async(page: number): Promise<Movie[]> =>{
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
 
-        _movies.push({
+        resolve({
           title: title,
           poster: poster,
           lang: lang,
@@ -71,8 +69,6 @@ const getMovies = async(page: number): Promise<Movie[]> =>{
           size: size,
           torrents: torrents,
         });
-
-        resolve(_movies);
 
       }catch(err){
         reject(err);
@@ -82,7 +78,7 @@ const getMovies = async(page: number): Promise<Movie[]> =>{
   return Promise.all(_movies);
 }
 
-const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
+export const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
   const res = await req(`${BASE_URL}/estrenos-23/page/${page}`);
   const $ = load(res);
 
@@ -101,7 +97,7 @@ const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
         
-        _releases.push({
+        resolve({
           title: title,
           poster: poster,
           lang: lang,
@@ -109,8 +105,6 @@ const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
           size: size,
           torrents: torrents,
         });
-
-        resolve(_releases);
 
       }catch(err){
         reject(err);
@@ -120,7 +114,7 @@ const getNewReleases = async(page: number): Promise<NewReleases[]> =>{
   return Promise.all(_releases);
 }
 
-const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
+export const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
   const res = await req(`${BASE_URL}/peliculas-hdrip-11/page/${page}`);
   const $ = load(res);
 
@@ -139,7 +133,7 @@ const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
         
-        _movies.push({
+        resolve({
           title: title,
           poster: poster,
           lang: lang,
@@ -147,8 +141,6 @@ const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
           size: size,
           torrents: torrents,
         });
-
-        resolve(_movies);
 
       }catch(err){
         reject(err);
@@ -158,7 +150,7 @@ const getMoviesHDRip = async(page: number): Promise<MoviesHDRip[]> =>{
   return Promise.all(_movies);
 }
 
-const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
+export const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
   const res = await req(`${BASE_URL}/peliculas-microhd-9/page/${page}`);
   const $ = load(res);
 
@@ -177,7 +169,7 @@ const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
         
-        _movies.push({
+        resolve({
           title: title,
           poster: poster,
           lang: lang,
@@ -185,8 +177,6 @@ const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
           size: size,
           torrents: torrents,
         });
-
-        resolve(_movies);
 
       }catch(err){
         reject(err);
@@ -196,7 +186,7 @@ const getMoviesMicroHD = async(page: number): Promise<MovieMicroHD[]> =>{
   return Promise.all(_movies);
 }
 
-const getContentByGenre = async(genre: string, page: number): Promise<Genre[]> =>{
+export const getContentByGenre = async(genre: string, page: number): Promise<Genre[]> =>{
   const res = await req(`${BASE_URL}/genero/${genre}/page/${page}`);
   const $ = load(res);
 
@@ -215,7 +205,7 @@ const getContentByGenre = async(genre: string, page: number): Promise<Genre[]> =
         const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
         let torrents = await getTorrent(id);
 
-        _content.push({
+        resolve({
           title: title,
           poster: poster,
           lang: lang,
@@ -223,8 +213,6 @@ const getContentByGenre = async(genre: string, page: number): Promise<Genre[]> =
           size: size,
           torrents: torrents,
         });
-
-        resolve(_content);
 
       }catch(err){
         reject(err);
