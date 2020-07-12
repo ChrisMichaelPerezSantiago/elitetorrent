@@ -59,4 +59,4 @@ _*Chris Michael*_
 
 ---
 
-Copyright © 2020 [COVID19 GraphQL API](https://github.com/ChrisMichaelPerezSantiago/elitetorrent).
+Copyright © 2020 [EliteTorrent](https://github.com/ChrisMichaelPerezSantiago/elitetorrent).
