@@ -242,14 +242,6 @@ Project started, and in development process. More information in the next days /
 
 ## getContentByGenre([genre: string, page: number])
 
-```js
-(async() =>{
-  const genre = 'drama-5';
-  const page = 1
-  const res = await getContentByGenre(genre, page);
-})();
-```
-
 |    genres              |
 |------------------------|
 | drama-5                |
@@ -263,6 +255,16 @@ Project started, and in development process. More information in the next days /
 | aventura-9             |
 | animacion-8            |
 | romance-2              |
+
+
+```js
+(async() =>{
+  const genre = 'drama-5';
+  const page = 1
+  const res = await getContentByGenre(genre, page);
+})();
+```
+
 
 ```json
 [
@@ -305,6 +307,63 @@ Project started, and in development process. More information in the next days /
 ]
 ```
 
+## getContentByQuality([quality: string, page: number])
+
+|        quality      |
+|---------------------|
+| 1080p-10            |
+| 720p-2              |
+
+```js
+(async() =>{
+  const quality = '1080p-10';
+  const page = 1;
+  const res = await getContentByQuality(quality, page);
+})();
+```
+
+```json
+[
+  {
+    "title": "Mermaid Down",
+    "poster": "https://www.elitetorrent.se/wp-content/uploads/portadas/1594430913-mermaid-down.jpg",
+    "lang": "Pelicula en Español Latino",
+    "resolution": "1080p",
+    "size": "3.12 GBs",
+    "torrents": [
+      {
+        "torrent": "https://www.elitetorrent.se/wp-content/uploads/files/1594430902-Mermaid Down 
+[1080p][Latino][wWw.EliteTorrent.TO].torrent",
+        "magnet": "magnet:?xt=urn:btih:331e4b34f2a25332b0a007ff6c6093f96ac9cdf6&dn=Mermaid+Down+%5B1080p%5D%5BLatino%5D%5BwWw.EliteTorrent.TO%5D&xl=3353458760&tr=udp://tracker.openbittorrent.com:80/announce&tr=udp://tracker.opentrackr.org:1337/announce",
+        "torrentInfo": {
+          "date": "15-10-2019",
+          "seeds": 1103,
+          "clients": 592
+        }
+      }
+    ]
+  },
+  {
+    "title": "La vieja guardia",
+    "poster": "https://www.elitetorrent.se/wp-content/uploads/portadas/1594418392-la-vieja-guardia.jpg",
+    "lang": "Pelicula en Español Latino",
+    "resolution": "1080p",
+    "size": "4.20 GBs",
+    "torrents": [
+      {
+        "torrent": "https://www.elitetorrent.se/wp-content/uploads/files/1594418366-La vieja guardia [1080p][Latino][wWw.EliteTorrent.TO].torrent",
+        "magnet": "magnet:?xt=urn:btih:11b4d10e83f2d7da356a22ff9544f27bb13790b1&dn=La+vieja+guardia+%5B1080p%5D%5BLatino%5D%5BwWw.EliteTorrent.TO%5D&xl=4511289628&tr=udp://tracker.openbittorrent.com:80/announce&tr=udp://tracker.opentrackr.org:1337/announce",
+        "torrentInfo": {
+          "date": "10-07-2020",
+          "seeds": 323,
+          "clients": 847
+        }
+      }
+    ]
+  },
+  // .....
+]
+```
 
 ## **:handshake: Contributing**
 
