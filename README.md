@@ -12,10 +12,10 @@
   <img src="https://img.shields.io/badge/EliteTorrent-API-brightgreen.svg"/>
 </p>
 
+<p align="center">
+ <a href="https://nodei.co/npm/elitetorrent/"><img src="https://nodei.co/npm/elitetorrent.png"></a>
+</p>
 
-
-## 🚨 Project in premature state 🚨
-Project started, and in development process. More information in the next days / weeks.
 
 
 # 📖 API Documentation
