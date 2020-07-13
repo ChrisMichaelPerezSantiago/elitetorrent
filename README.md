@@ -365,6 +365,75 @@ Project started, and in development process. More information in the next days /
 ]
 ```
 
+## search([query: string])
+
+```js
+(async() =>{
+  const q = 'juego de tronos';
+  const res = await search(q);
+})();
+
+```
+
+```json
+[
+  {
+    "title": "Juego de Tronos 8×0",
+    "poster": "https://www.elitetorrent.se/wp-content/uploads/portadas/1558991320-juego-de-tronos-0x41.jpg",
+    "lang": "Pelicula en Ingles Subtitulado VOSE",
+    "resolution": "HDTV 720p",
+    "size": "2.62 GBs",
+    "torrents": [
+      {
+        "torrent": "https://www.elitetorrent.se/wp-content/uploads/files/1558991353-GOT 8x0 [720p][Castellano][wWw.EliteTorrent.IO].torrent",
+        "magnet": "magnet:?xt=urn:btih:2c668d8ae9bb95cf6668faab7d52f28b418f0c3c&dn=GOT+8x0+%5B720p%5D%5BCastellano%5D%5BwWw.EliteTorrent.IO%5D&xl=2815838261&tr=udp://tracker.openbittorrent.com:80/announce&tr=udp://tracker.opentrackr.org:1337/announce",
+        "torrentInfo": {
+          "date": "26-05-2019",
+          "seeds": 488,
+          "clients": 529
+        }
+      }
+    ]
+  },
+  {
+    "title": "Juego de Tronos 8×06",
+    "poster": "https://www.elitetorrent.se/wp-content/uploads/portadas/1558322546-juego-de-tronos-8x06.jpg",
+    "lang": "Pelicula en Español Latino",
+    "resolution": "1080p",
+    "size": "1.96 GBs",
+    "torrents": [
+      {
+        "torrent": "https://www.elitetorrent.se/wp-content/uploads/files/1558322588-GOT 8x6 [1080p][Latino][wWw.EliteTorrent.IO].torrent",
+        "magnet": "magnet:?xt=urn:btih:5c37e600752a00983b124a107a35ac730cefed8a&dn=GOT+8x6+%5B1080p%5D%5BLatino%5D%5BwWw.EliteTorrent.IO%5D&xl=2102680826&tr=udp://tracker.openbittorrent.com:80/announce&tr=udp://tracker.opentrackr.org:1337/announce",
+        "torrentInfo": {
+          "date": "19-05-2019",
+          "seeds": 189,
+          "clients": 364
+        }
+      }
+    ]
+  },
+  {
+    "title": "Juego de Tronos 8×06",
+    "poster": "https://www.elitetorrent.se/wp-content/uploads/portadas/1558316720-juego-de-tronos-8x06.jpg",
+    "lang": "Pelicula en Español Castellano",
+    "resolution": "720p",
+    "size": "1.33 GBs",
+    "torrents": [
+      {
+        "torrent": "https://www.elitetorrent.se/wp-content/uploads/files/1558316798-GOT 8x6 [720p][Castellano][wWw.EliteTorrent.IO].torrent",
+        "magnet": "magnet:?xt=urn:btih:195580dac4565b88df8f8bc406fa3dc16b8bfa69&dn=GOT+8x6+%5B720p%5D%5BCastellano%5D%5BwWw.EliteTorrent.IO%5D&xl=1424730278&tr=udp://tracker.openbittorrent.com:80/announce&tr=udp://tracker.opentrackr.org:1337/announce",
+        "torrentInfo": {
+          "date": "19-05-2019",
+          "seeds": 1070,
+          "clients": 763
+        }
+      }
+    ]
+  }, // .....
+]
+```
+
 ## **:handshake: Contributing**
 
 - Fork it!
