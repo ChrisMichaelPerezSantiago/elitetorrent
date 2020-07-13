@@ -69,4 +69,14 @@ export interface Genre{
   torrents: Array<TorrentFile>;
 };
 
+export interface ContentByQuality{
+  title: string;
+  poster: string;
+  lang: string;
+  resolution: string;
+  size: string;
+  torrents: Array<TorrentFile>;
+};
+
+
 
