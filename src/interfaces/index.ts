@@ -78,5 +78,14 @@ export interface ContentByQuality{
   torrents: Array<TorrentFile>;
 };
 
+export interface Query{
+  title: string;
+  poster: string;
+  lang: string;
+  resolution: string;
+  size: string;
+  torrents: Array<TorrentFile>;
+}
+
 
 

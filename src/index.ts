@@ -2,7 +2,7 @@ import { load } from 'cheerio'
 import { req } from './utils/index';
 import { BASE_URL } from './urls/index';
 import { TypeSN, TypeNN } from './types';
-import { TorrentFile, Serie, Movie, NewReleases, MoviesHDRip, MovieMicroHD, TorrentInfo, Genre, ContentByQuality } from './interfaces';
+import { TorrentFile, Serie, Movie, NewReleases, MoviesHDRip, MovieMicroHD, TorrentInfo, Genre, ContentByQuality, Query } from './interfaces';
 
 
 
@@ -227,6 +227,43 @@ export const getContentByQuality = async(quality: string, page: number): Promise
   const $ = load(res);
 
   const _content: Array<ContentByQuality> = $('body div#cuerpo div#principal ul li')
+    .map((_index: number, element: CheerioElement) => new Promise(async(resolve, reject) =>{
+      try{
+        const $element = $(element);
+        const id: TypeSN = $element.find('div.meta a').attr('href');
+        const title: TypeSN = $element.find('div.meta a.nombre').text();
+        let poster: TypeSN = $element.find('div.imagen a img.brighten').attr('data-src');
+        if(poster !== null && poster.startsWith('/')){
+          poster = `${BASE_URL}` + $element.find('div.imagen a img.brighten').attr('data-src');
+        }
+        const lang = $element.find('div.imagen span#idiomacio i img').attr('alt');
+        const resolution: TypeSN = $element.find('div.imagen span.marca').eq(1).text();
+        const size: TypeSN = $element.find('div.imagen div.voto1 span.dig1').text();
+        let torrents = await getTorrent(id);
+
+        resolve({
+          title: title,
+          poster: poster,
+          lang: lang,
+          resolution: resolution,
+          size: size,
+          torrents: torrents,
+        });
+
+      }catch(err){
+        reject(err);
+      }
+  })).get();
+
+  return Promise.all(_content);
+}
+
+
+export const search = async(query: string): Promise<Query[]> =>{
+  const res = await req(`${BASE_URL}/?s=${query}`);
+  const $ = load(res);
+
+  const _content: Array<Query> = $('body div#cuerpo div#principal ul li')
     .map((_index: number, element: CheerioElement) => new Promise(async(resolve, reject) =>{
       try{
         const $element = $(element);
