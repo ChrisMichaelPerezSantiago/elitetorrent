@@ -7,7 +7,16 @@
   "module": "build/module/index.js",
   "repository": "https://github.com/ChrisMichaelPerezSantiago/elitetorrent",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "elitetorrent",
+    "elite torrent",
+    "elite torrent series",
+    "elite torrent series",
+    "torrent series",
+    "torrent movies",
+    "magnet torret series",
+    "magnet torret movies"
+  ],
   "scripts": {
     "describe": "npm-scripts-info",
     "start:api": "nodemon",
